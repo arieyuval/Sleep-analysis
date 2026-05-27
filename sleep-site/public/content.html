@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Factors — The Science of Sleep</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #cbd5e1;
+      min-height: 100vh;
+      padding-bottom: 6rem;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 1rem 1.5rem;
+    }
+
+    .nav-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: #34d399; }
+    .nav-back svg { width: 1.1rem; height: 1.1rem; }
+
+    .nav-live {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #f1f5f9;
+    }
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* LAYOUT */
+    .content {
+      max-width: 72rem;
+      margin: 3rem auto 0;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    @media (max-width: 768px) {
+      .content { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* LEFT COLUMN */
+    .left-col { display: flex; flex-direction: column; gap: 2rem; }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    h2 span {
+      background: linear-gradient(90deg, #34d399, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #64748b;
+    }
+
+    /* Image */
+    .img-wrapper {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .img-wrapper img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .scan-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(15,23,42,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(34,211,238,0.3);
+      color: #67e8f9;
+      font-size: 0.7rem;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .glass-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .glass-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #94a3b8;
+    }
+
+    /* RIGHT COLUMN */
+    .right-col { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .factor-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .factor-card.red   { border-left: 4px solid #ef4444; }
+    .factor-card.green { border-left: 4px solid #10b981; }
+    .factor-card.blue  { border-left: 4px solid #3b82f6; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .card-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-icon.red   { background: rgba(239,68,68,0.15); color: #f87171; }
+    .card-icon.green { background: rgba(16,185,129,0.15); color: #34d399; }
+    .card-icon.blue  { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .card-icon svg { width: 1.3rem; height: 1.3rem; }
+
+    .card-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .factor-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .factor-list li {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #94a3b8;
+    }
+    .factor-list li strong {
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-back">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        Back to Video
+      </a>
+      <div class="nav-live">
+        <div class="pulse"></div>
+        Live Analysis
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+      <header>
+        <h2>Decoding the <span>Sleep Matrix</span></h2>
+        <p class="subtitle">
+          Sleep is not a passive state, but an active, complex physiological process. The visualization below maps the interconnected factors that dictate whether you wake up feeling restored or depleted.
+        </p>
+      </header>
+
+      <div class="img-wrapper">
+        <img src="image.png" alt="Diagnostic map showing sleep factors: physiological, lifestyle, and psychological" />
+        <span class="scan-badge">SCAN COMPLETE</span>
+      </div>
+
+      <div class="glass-card">
+        <h3>The Vicious Cycle</h3>
+        <p>
+          Notice how the parameters interact. High stress levels elevate heart rate and blood pressure, creating a hyper-aroused state that makes falling asleep incredibly difficult. Compounded by low physical activity, the body lacks the physical exhaustion required to trigger deep, restorative sleep phases.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- Physiological -->
+      <div class="factor-card red">
+        <div class="card-header">
+          <div class="card-icon red">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h3>Physiological Factors</h3>
+        </div>
+        <ul class="factor-list">
+          <li><strong>Heart Rate:</strong> An elevated resting heart rate prevents the body from entering the relaxed state necessary for sleep onset.</li>
+          <li><strong>Blood Pressure (135/85 mmHg):</strong> Pre-hypertension or hypertension is often correlated with fragmented sleep architecture.</li>
+          <li><strong>BMI (28.5 - Overweight):</strong> Excess body weight significantly increases the risk of sleep-disordered breathing, including Obstructive Sleep Apnea (OSA).</li>
+        </ul>
+      </div>
+
+      <!-- Lifestyle -->
+      <div class="factor-card green">
+        <div class="card-header">
+          <div class="card-icon green">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3>Lifestyle Choices</h3>
+        </div>
+        <ul class="factor-list">
+          <li><strong>Physical Activity:</strong> Categorized as 'Low'. Regular exercise increases sleep drive and helps regulate circadian rhythms.</li>
+          <li><strong>Daily Steps (3,500):</strong> Well below the recommended target. Sedentary lifestyles are directly linked to poorer sleep quality.</li>
+          <li><strong>Diet &amp; Nutrition:</strong> Heavy, late-night meals or high sugar/caffeine intake disrupts digestive resting phases and neurochemical sleep signals.</li>
+        </ul>
+      </div>
+
+      <!-- Psychological -->
+      <div class="factor-card blue">
+        <div class="card-header">
+          <div class="card-icon blue">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3>Psychological &amp; Sleep Health</h3>
+        </div>
+        <ul class="factor-list">
+          <li><strong>Stress Levels (High):</strong> Cortisol and adrenaline spikes cause a racing mind, making it impossible to transition into Stage 1 sleep.</li>
+          <li><strong>Sleep Duration (5h 15m):</strong> Clinically inadequate. Most adults require 7-9 hours for cognitive maintenance and physical repair.</li>
+          <li><strong>Sleep Quality &amp; Disorders:</strong> Rated as 'Poor', with a sleep disorder likely present (e.g., insomnia, apnea), resulting in waking up unrefreshed.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
